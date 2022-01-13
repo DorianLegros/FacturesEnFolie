@@ -1,10 +1,9 @@
 package com.example.facturesenfolie.models;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
+@Entity
 public class Customer {
     @Id
     @Column(name = "id", nullable = false)
@@ -12,42 +11,35 @@ public class Customer {
     private Long id;
 
     @Column(nullable = false)
+    @NotBlank
     private String firstName;
 
     @Column(nullable = false)
+    @NotBlank
     private String lastName;
 
-    @Column
     private String fullName;
 
-    @Column
+    @Column(nullable = false)
+    @NotBlank
     private String email;
 
-    @Column
     private String phone;
 
-    @Column
     private String mobile;
 
-    @Column
     private String address1;
 
-    @Column
     private String address2;
 
-    @Column
     private String zipCode;
 
-    @Column
     private String city;
 
-    @Column
     private String state;
 
-    @Column
     private String country;
 
-    @Column
     private String notes;
 
     public Long getId() {

@@ -1,39 +1,33 @@
 package com.example.facturesenfolie.models;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 enum ServiceType { WEBSITE_MAKING, OTHER }
 
-public class ServiceInvoice {
+@Entity
+public class ServiceInvoice implements IInvoice {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column
-    private Long customerId;
+    @ManyToOne
+    private Customer customer;
 
-    @Column
     private float amount = 0;
 
-    @Column
     private Date sendDate = new Date();
 
-    @Column
     private Date payDate = new Date();
 
-    @Column
+    private PaymentMethod paymentMethod = PaymentMethod.TRANSFER;
+
     private InvoiceStatus status = InvoiceStatus.DRAFT;
 
-    @Column
     private String description = "";
 
     // specific properties
-    @Column
     private ServiceType type = ServiceType.OTHER;
 
     public Long getId() {
@@ -44,12 +38,12 @@ public class ServiceInvoice {
         this.id = id;
     }
 
-    public Long getCustomerId() {
-        return customerId;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
-    public void setCustomerId(Long customerId) {
-        this.customerId = customerId;
+    public Customer getCustomer() {
+        return customer;
     }
 
     public float getAmount() {
@@ -74,6 +68,14 @@ public class ServiceInvoice {
 
     public void setPayDate(Date payDate) {
         this.payDate = payDate;
+    }
+
+    public PaymentMethod getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(PaymentMethod paymentMethod) {
+        this.paymentMethod = paymentMethod;
     }
 
     public InvoiceStatus getStatus() {
