@@ -99,4 +99,21 @@ public class FormationInvoice implements IInvoice {
     public void setCandidateNumber(long candidateNumber) {
         this.candidateNumber = candidateNumber;
     }
+
+    @Override
+    public String toString() {
+        String result = "{" +
+                "\"id\":\"" + id + "\"" +
+                ", \"customer\": " + customer +
+                ", \"amount\":" + amount +
+                ", \"sendDate\":\"" + sendDate + "\"" +
+                ", \"payDate\":\"" + payDate + "\"" +
+                ", \"paymentMethod\":\"" + paymentMethod + "\"" +
+                ", \"status\":\"" + status + "\"" +
+                ", \"description\":\"" + description + "\"" +
+                ", \"candidateNumber\":" + candidateNumber +
+                '}';
+
+        return result.replace("\"null\"", "null");
+    }
 }

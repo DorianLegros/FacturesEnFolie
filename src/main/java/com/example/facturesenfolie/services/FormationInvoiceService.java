@@ -1,5 +1,6 @@
 package com.example.facturesenfolie.services;
 
+import com.example.facturesenfolie.models.Customer;
 import com.example.facturesenfolie.models.FormationInvoice;
 import com.example.facturesenfolie.repositories.FormationInvoiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +33,9 @@ public class FormationInvoiceService {
             return formationInvoices;
         else
             return null;
+    }
+
+    public FormationInvoice createFormationInvoice(FormationInvoice invoice) {
+        return repository.save(invoice);
     }
 }

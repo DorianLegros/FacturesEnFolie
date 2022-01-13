@@ -154,7 +154,7 @@ public class Customer {
 
     @Override
     public String toString() {
-        return "{" +
+        String result = "{" +
                 "\"id\": " + id +
                 ", \"firstName\":\"" + firstName + "\"" +
                 ", \"lastName\":\"" + lastName + "\"" +
@@ -170,5 +170,7 @@ public class Customer {
                 ", \"country\":\"" + country + "\"" +
                 ", \"notes\":\"" + notes + "\"" +
                 "}";
+
+        return result.replace("\"null\"", "null");
     }
 }

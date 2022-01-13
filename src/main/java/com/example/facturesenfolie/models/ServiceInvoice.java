@@ -101,4 +101,21 @@ public class ServiceInvoice implements IInvoice {
     public void setType(ServiceType type) {
         this.type = type;
     }
+
+    @Override
+    public String toString() {
+        String result = "{" +
+                "\"id\":\"" + id + "\"" +
+                ", \"customer\": " + customer +
+                ", \"amount\":" + amount +
+                ", \"sendDate\":\"" + sendDate + "\"" +
+                ", \"payDate\":\"" + payDate + "\"" +
+                ", \"paymentMethod\":\"" + paymentMethod + "\"" +
+                ", \"status\":\"" + status + "\"" +
+                ", \"description\":\"" + description + "\"" +
+                ", \"serviceType\":\"" + type + "\"" +
+                '}';
+
+        return result.replace("\"null\"", "null");
+    }
 }

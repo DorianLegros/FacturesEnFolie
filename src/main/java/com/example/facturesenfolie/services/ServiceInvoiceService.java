@@ -35,4 +35,8 @@ public class ServiceInvoiceService {
         else
             return null;
     }
+
+    public ServiceInvoice createFormationInvoice(ServiceInvoice invoice) {
+        return repository.save(invoice);
+    }
 }
