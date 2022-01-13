@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-@Component("CustomerService")
 @Service
 public class CustomerService {
     @Autowired
@@ -28,7 +27,7 @@ public class CustomerService {
         return customer.orElse(null);
     }
 
-    public List<Customer> searchCustomerByFullName(String fullName) {
+    public List<Customer> searchCustomersByFullName(String fullName) {
         List<Customer> customers = repository.findCustomerByFullNameContains(fullName);
         if(!customers.isEmpty())
             return customers;

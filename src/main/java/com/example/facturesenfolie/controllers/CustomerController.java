@@ -36,7 +36,7 @@ public class CustomerController {
 
     @GetMapping("/byFullName")
     public ResponseEntity<String> findCustomersByFullName(@RequestParam (value = "fullName", defaultValue = "") String fullName) {
-        List<Customer> customers = customerService.searchCustomerByFullName(fullName);
+        List<Customer> customers = customerService.searchCustomersByFullName(fullName);
         if(customers != null)
             return new ResponseEntity<String>(customers.toString(), HttpStatus.OK);
         else
