@@ -18,7 +18,7 @@ public class Customer {
     @NotBlank
     private String lastName;
 
-    private String fullName;
+    private String fullName = this.firstName + " " + this.lastName;
 
     @Column(nullable = false)
     @NotBlank
@@ -56,6 +56,7 @@ public class Customer {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+        this.fullName = this.firstName + " " + this.lastName;
     }
 
     public String getLastName() {
@@ -64,6 +65,7 @@ public class Customer {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+        this.fullName = this.firstName + " " + this.lastName;
     }
 
     public String getFullName() {
@@ -148,5 +150,25 @@ public class Customer {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "\"id\": " + id +
+                ", \"firstName\":\"" + firstName + "\"" +
+                ", \"lastName\":\"" + lastName + "\"" +
+                ", \"fullName\":\"" + fullName + "\"" +
+                ", \"email\":\"" + email + "\"" +
+                ", \"phone\":\"" + phone + "\"" +
+                ", \"mobile\":\"" + mobile + "\"" +
+                ", \"address1\":\"" + address1 + "\"" +
+                ", \"address2\":\"" + address2 + "\"" +
+                ", \"zipCode\":\"" + zipCode + "\"" +
+                ", \"city\":\"" + city + "\"" +
+                ", \"state\":\"" + state + "\"" +
+                ", \"country\":\"" + country + "\"" +
+                ", \"notes\":\"" + notes + "\"" +
+                "}";
     }
 }
