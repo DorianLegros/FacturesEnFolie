@@ -5,6 +5,7 @@ import com.example.facturesenfolie.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -17,7 +18,7 @@ public class CustomerController {
     CustomerService customerService;
 
     @GetMapping("/all")
-    public ResponseEntity<String> getAllCustomers() {
+    public ResponseEntity<String> getAllCustomers(ModelMap model) {
         List<Customer> customers = customerService.getAllCustomers();
         if(customers != null)
             return new ResponseEntity<String>(customers.toString(), HttpStatus.OK);

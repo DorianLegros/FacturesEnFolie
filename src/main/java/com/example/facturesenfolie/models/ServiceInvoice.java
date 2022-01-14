@@ -1,9 +1,12 @@
 package com.example.facturesenfolie.models;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
-enum ServiceType { WEBSITE_MAKING, OTHER }
+enum ServiceType {WEBSITE_MAKING, OTHER}
 
 @Entity
 public class ServiceInvoice implements IInvoice {
@@ -16,10 +19,11 @@ public class ServiceInvoice implements IInvoice {
     private Customer customer;
 
     private float amount = 0;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate sendDate;
 
-    private Date sendDate = new Date();
-
-    private Date payDate = new Date();
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate payDate;
 
     private PaymentMethod paymentMethod = PaymentMethod.TRANSFER;
 
@@ -54,21 +58,6 @@ public class ServiceInvoice implements IInvoice {
         this.amount = amount;
     }
 
-    public Date getSendDate() {
-        return sendDate;
-    }
-
-    public void setSendDate(Date sendDate) {
-        this.sendDate = sendDate;
-    }
-
-    public Date getPayDate() {
-        return payDate;
-    }
-
-    public void setPayDate(Date payDate) {
-        this.payDate = payDate;
-    }
 
     public PaymentMethod getPaymentMethod() {
         return paymentMethod;
@@ -101,7 +90,21 @@ public class ServiceInvoice implements IInvoice {
     public void setType(ServiceType type) {
         this.type = type;
     }
+    public LocalDate getSendDate() {
+        return sendDate;
+    }
 
+    public void setSendDate(LocalDate sendDate) {
+        this.sendDate = sendDate;
+    }
+
+    public LocalDate getPayDate() {
+        return payDate;
+    }
+
+    public void setPayDate(LocalDate payDate) {
+        this.payDate = payDate;
+    }
     @Override
     public String toString() {
         String result = "{" +

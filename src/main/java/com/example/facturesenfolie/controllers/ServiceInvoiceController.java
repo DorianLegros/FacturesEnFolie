@@ -24,7 +24,7 @@ public class ServiceInvoiceController {
     CustomerService customerService;
 
     @GetMapping("/all")
-    public ResponseEntity<String> getAllFormationInvoices() {
+    public ResponseEntity<String> getAllServiceInvoices() {
         List<ServiceInvoice> invoices = serviceInvoiceService.getAllServiceInvoices();
         if(invoices != null)
             return new ResponseEntity<String>(invoices.toString(), HttpStatus.OK);
@@ -33,7 +33,7 @@ public class ServiceInvoiceController {
     }
 
     @GetMapping("/byId/{id}")
-    public ResponseEntity<String> getFormationInvoiceById(@PathVariable Long id) {
+    public ResponseEntity<String> getServiceInvoiceById(@PathVariable Long id) {
         ServiceInvoice invoice = serviceInvoiceService.getServiceInvoiceById(id);
         if(invoice != null)
             return new ResponseEntity<String>(invoice.toString(), HttpStatus.OK);
@@ -42,7 +42,7 @@ public class ServiceInvoiceController {
     }
 
     @GetMapping("/byCustomerId/{id}")
-    public ResponseEntity<String> findCustomersByFullName(@PathVariable Long id) {
+    public ResponseEntity<String> findServiceInvoicesByCustomerId(@PathVariable Long id) {
         List<ServiceInvoice> invoices = serviceInvoiceService.searchServiceInvoicesByCustomerId(id);
         if(invoices != null)
             return new ResponseEntity<String>(invoices.toString(), HttpStatus.OK);
@@ -51,7 +51,7 @@ public class ServiceInvoiceController {
     }
 
     @PostMapping("/add/{idCustomer}")
-    public ResponseEntity<String> createCustomer(@PathVariable Long idCustomer, @Valid @RequestBody ServiceInvoice invoice) {
+    public ResponseEntity<String> createServiceInvoice(@PathVariable Long idCustomer, @Valid @RequestBody ServiceInvoice invoice) {
         Customer customer = customerService.getCustomerById(idCustomer);
         if (customer == null)
             return new ResponseEntity<String>("Le client auquel vous souhaitez créer une facture n'existe pas.", HttpStatus.NOT_FOUND);
