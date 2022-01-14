@@ -73,16 +73,9 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-        <td> toto</td>
-        <td> toto</td>
-        <td> toto</td>
-        <td> toto</td>
-    </tr>
     <tr th:each="customer,state: ${customers}">
         <td th:utext="${customer.id}"></td>
         <td th:utext="${customer.firstName}"></td>
-        <td th:utext="${customer.phone}"></td>
         <td th:utext="${customer.lastName}"></td>
         <td th:utext="${customer.email}"></td>
         <td th:utext="${customer.phone}"></td>
