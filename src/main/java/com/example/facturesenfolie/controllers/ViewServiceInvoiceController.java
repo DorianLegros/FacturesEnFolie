@@ -1,5 +1,6 @@
 package com.example.facturesenfolie.controllers;
 
+
 import com.example.facturesenfolie.models.Customer;
 import com.example.facturesenfolie.models.FormationInvoice;
 import com.example.facturesenfolie.models.ServiceInvoice;
@@ -10,53 +11,66 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/api/service-invoices")
-public class ServiceInvoiceController {
+@RequestMapping(value = "/view/service-invoices")
+public class ViewServiceInvoiceController {
     @Autowired
     ServiceInvoiceService serviceInvoiceService;
     @Autowired
     CustomerService customerService;
 
-    @GetMapping("/all")
-    public ResponseEntity<String> getAllServiceInvoices() {
+    @GetMapping(value = "/all")
+    public String getAllServiceInvoices(ModelMap model) {
         List<ServiceInvoice> invoices = serviceInvoiceService.getAllServiceInvoices();
-        if(invoices != null)
-            return new ResponseEntity<String>(invoices.toString(), HttpStatus.OK);
+        if (invoices != null)
+            model.addAttribute("serviceInvoices", invoices);
         else
-            return new ResponseEntity<String>("Aucun élément trouvé.", HttpStatus.OK);
+            model.addAttribute("serviceInvoices", new ArrayList<ServiceInvoice>());
+        return "invoice";
     }
 
-    @GetMapping("/byId/{id}")
-    public ResponseEntity<String> getServiceInvoiceById(@PathVariable Long id) {
+    @GetMapping(value = "/byId/{id}")
+    public String getServiceInvoiceById(@PathVariable Long id, ModelMap model) {
         ServiceInvoice invoice = serviceInvoiceService.getServiceInvoiceById(id);
-        if(invoice != null)
-            return new ResponseEntity<String>(invoice.toString(), HttpStatus.OK);
+        if (invoice != null)
+            model.addAttribute("serviceInvoices", invoice);
         else
-            return new ResponseEntity<String>("Aucune facture trouvée à cet ID.", HttpStatus.NOT_FOUND);
+            model.addAttribute("serviceInvoices", new ArrayList<ServiceInvoice>());
+        return "invoice";
     }
 
-    @GetMapping("/byCustomerId/{id}")
-    public ResponseEntity<String> findServiceInvoicesByCustomerId(@PathVariable Long id) {
+    @GetMapping(value = "/byCustomerId/{id}")
+    public String findServiceInvoicesByCustomerId(@PathVariable Long id, ModelMap model) {
         List<ServiceInvoice> invoices = serviceInvoiceService.searchServiceInvoicesByCustomerId(id);
-        if(invoices != null)
-            return new ResponseEntity<String>(invoices.toString(), HttpStatus.OK);
+        if (invoices != null)
+            model.addAttribute("serviceInvoices", invoices);
         else
-            return new ResponseEntity<String>("Aucun élément trouvé.", HttpStatus.OK);
+            model.addAttribute("serviceInvoices", new ArrayList<ServiceInvoice>());
+        return "invoice";
     }
 
-    @PostMapping("/add/{idCustomer}")
-    public ResponseEntity<String> createServiceInvoice(@PathVariable Long idCustomer, @Valid @RequestBody ServiceInvoice invoice) {
+    @PostMapping(value = "/add/{idCustomer}")
+    public ResponseEntity<String> createServiceInvoice(@PathVariable Long idCustomer, @ModelAttribute ServiceInvoice invoice) {
         Customer customer = customerService.getCustomerById(idCustomer);
         if (customer == null)
             return new ResponseEntity<String>("Le client auquel vous souhaitez créer une facture n'existe pas.", HttpStatus.NOT_FOUND);
         invoice.setCustomer(customer);
         ServiceInvoice serviceInvoiceCreated = serviceInvoiceService.createFormationInvoice(invoice);
+
         return new ResponseEntity<String>(serviceInvoiceCreated.toString(), HttpStatus.CREATED);
+    }
+
+    @GetMapping(value = "/formInvoice")
+    public String displayFormInvoice(ModelMap model) {
+        model.addAttribute("invoice", new ServiceInvoice());
+        return "formInvoice";
     }
 }

@@ -43,7 +43,7 @@ public class ViewCustomerController {
 
     @GetMapping(value = "/byFullName")
     public String findCustomersByFullName(@RequestParam (value = "fullName", defaultValue = "") String fullName,ModelMap model) {
-        List<Customer> customers = customerService.searchCustomerByFullName(fullName);
+        List<Customer> customers = customerService.searchCustomersByFullName(fullName);
         if(customers != null)
             model.addAttribute("customers",customers);
         else
